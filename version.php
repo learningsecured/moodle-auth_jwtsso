@@ -25,8 +25,7 @@
 defined('MOODLE_INTERNAL') || die();
 
 $plugin->component = 'auth_jwtsso';
-$plugin->version   = 2025110300;                // YYYYMMDDXX → 2025-11-03 v1.0.0.
+$plugin->version   = 2025110301;                // YYYYMMDDXX → 2025-11-03 v1.0.0.
 $plugin->release   = 'v1.0.0 (Build: 20251103)';
 $plugin->requires  = 2024100700;                // Moodle 4.5 (20241007) or later.
 $plugin->maturity  = MATURITY_STABLE;
-

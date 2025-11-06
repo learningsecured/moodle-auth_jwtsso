@@ -48,6 +48,7 @@ $string['pluginname'] = 'JWT SSO authentication';
 $string['publickey'] = 'Public key (PEM)';
 $string['publickey_desc'] = 'Static PEM public key used if JWKS is unavailable.';
 $string['settings_desc'] = 'Validate signed JWTs from an external IdP. Supports JWKS or manual PEM public key.';
+$string['cachedef_jwks'] = 'JWKS cache';
 
 $string['showbutton'] = 'Show SSO login button on login page';
 $string['showbutton_desc'] = 'Adds a button that initiates the SP-initiated flow.';

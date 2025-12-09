@@ -13,7 +13,7 @@ From the plugin root:
 
 ```bash
 cd auth/jwtsso/examples
-pip install flask requests pyjwt
+pip install flask requests pyjwt cryptography
 ```
 
 ## 🚀 Running the Example IdP

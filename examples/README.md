@@ -7,7 +7,7 @@ It demonstrates how a real IdP can issue signed JWTs for Moodle, including the p
 ## ⚙️ Requirements
 
 * **Python 3.8+**
-* `pip install flask requests pyjwt`
+* `pip install flask requests pyjwt cryptography`
 
 From the plugin root:
 

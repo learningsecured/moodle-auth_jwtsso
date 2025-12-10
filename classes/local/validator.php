@@ -138,6 +138,18 @@ final class validator {
                             return self::jwk_to_pem($jwk);
                         }
                     }
+                    // If the kid is not found in the cached JWKS, 
+                    // invalidate the cache and repeat once.
+                    $cache = \cache::make('auth_jwtsso', 'jwks');
+                    $cache->delete($config->jwksurl);
+                    $jwks = jwks_cache::get($config->jwksurl);
+                    if ($jwks && !empty($jwks['keys'])) {
+                        foreach ($jwks['keys'] as $jwk) {
+                            if (isset($jwk['kid']) && $jwk['kid'] === $kid) {
+                                return self::jwk_to_pem($jwk);
+                            }
+                        }
+                    }
                 }
                 foreach ($jwks['keys'] as $jwk) {
                     if (self::alg_matches_kty($alg, (string)($jwk['kty'] ?? ''))) {

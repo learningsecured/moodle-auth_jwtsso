@@ -138,6 +138,18 @@ final class validator {
                             return self::jwk_to_pem($jwk);
                         }
                     }
+                    // If the kid is not found in the cached JWKS, 
+                    // invalidate the cache and repeat once.
+                    $cache = \cache::make('auth_jwtsso', 'jwks');
+                    $cache->delete($config->jwksurl);
+                    $jwks = jwks_cache::get($config->jwksurl);
+                    if ($jwks && !empty($jwks['keys'])) {
+                        foreach ($jwks['keys'] as $jwk) {
+                            if (isset($jwk['kid']) && $jwk['kid'] === $kid) {
+                                return self::jwk_to_pem($jwk);
+                            }
+                        }
+                    }
                 }
                 foreach ($jwks['keys'] as $jwk) {
                     if (self::alg_matches_kty($alg, (string)($jwk['kty'] ?? ''))) {
@@ -185,7 +197,7 @@ final class validator {
     }
 
     /**
-     * Convert JWK (RSA) to PEM.
+     * Convert JWK (RSA/EC) to PEM.
      *
      * @param array $jwk
      * @return string|null
@@ -205,7 +217,29 @@ final class validator {
                 "-----END PUBLIC KEY-----\n";
             return $pem;
         }
-        // EC support can be added similarly (crv,x,y).
+        // EC P-256 (ES256) support.
+        if ($kty === 'EC' && !empty($jwk['crv']) && !empty($jwk['x']) && !empty($jwk['y'])) {
+            $crv = $jwk['crv'];
+            if ($crv === 'P-256') {
+                $x = self::b64u_decode($jwk['x']);
+                $y = self::b64u_decode($jwk['y']);
+                // EC public key point: 0x04 (uncompressed) + x + y.
+                $point = "\x04" . $x . $y;
+                // OID for secp256r1 (P-256): 1.2.840.10045.3.1.7.
+                $oid = "\x2A\x86\x48\xCE\x3D\x03\x01\x07";
+                $der = self::asn1_sequence(
+                    self::asn1_sequence(
+                        self::asn1_object_identifier("\x2A\x86\x48\xCE\x3D\x02\x01") .
+                        self::asn1_object_identifier($oid)
+                    ) .
+                    self::asn1_bit_string("\x00" . $point)
+                );
+                $pem = "-----BEGIN PUBLIC KEY-----\n" .
+                    chunk_split(base64_encode($der), 64, "\n") .
+                    "-----END PUBLIC KEY-----\n";
+                return $pem;
+            }
+        }
         return null;
     }
 

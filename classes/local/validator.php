@@ -138,7 +138,7 @@ final class validator {
                             return self::jwk_to_pem($jwk);
                         }
                     }
-                    // If the kid is not found in the cached JWKS, 
+                    // If the kid is not found in the cached JWKS,
                     // invalidate the cache and repeat once.
                     $cache = \cache::make('auth_jwtsso', 'jwks');
                     $cache->delete($config->jwksurl);

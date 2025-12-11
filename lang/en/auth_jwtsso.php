@@ -27,6 +27,7 @@ $string['allowedalgs_desc'] = 'Comma-separated list (e.g. RS256, ES256).';
 $string['audience'] = 'Audience (aud)';
 $string['audience_desc'] = 'Expected aud claim. Defaults to this Moodle’s URL.';
 $string['autocreate'] = 'Just-in-time user creation';
+$string['cachedef_jwks'] = 'JWKS cache';
 $string['claim_email'] = 'Claim for email';
 $string['claim_username'] = 'Claim for username';
 $string['detailedevents'] = 'Enable detailed event logging';
@@ -48,7 +49,6 @@ $string['pluginname'] = 'JWT SSO authentication';
 $string['publickey'] = 'Public key (PEM)';
 $string['publickey_desc'] = 'Static PEM public key used if JWKS is unavailable.';
 $string['settings_desc'] = 'Validate signed JWTs from an external IdP. Supports JWKS or manual PEM public key.';
-$string['cachedef_jwks'] = 'JWKS cache';
 
 $string['showbutton'] = 'Show SSO login button on login page';
 $string['showbutton_desc'] = 'Adds a button that initiates the SP-initiated flow.';

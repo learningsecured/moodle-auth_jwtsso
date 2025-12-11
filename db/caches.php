@@ -28,7 +28,8 @@ defined('MOODLE_INTERNAL') || die();
 $definitions = [
     'jwks' => [
         'mode' => cache_store::MODE_APPLICATION,
-        'simplekeys' => true,
+        'simplekeys' => false,
+        'simpledata' => false,
         'ttl' => 3600,
     ],
 ];

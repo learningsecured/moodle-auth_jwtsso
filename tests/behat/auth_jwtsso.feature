@@ -28,4 +28,3 @@ Feature: JWT SSO authentication
     When I visit the JWTS SSO callback with the current token
     And I visit "/user/preferences.php"
     Then I should see "Behat User"
-

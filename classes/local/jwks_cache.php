@@ -24,6 +24,10 @@
 
 namespace auth_jwtsso\local;
 
+defined('MOODLE_INTERNAL') || die();
+
+require_once($CFG->libdir . '/filelib.php'); // Required for curl class.
+
 /**
  * JWKS fetch + cache.
  */

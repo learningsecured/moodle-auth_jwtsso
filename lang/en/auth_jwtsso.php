@@ -27,6 +27,7 @@ $string['allowedalgs_desc'] = 'Comma-separated list (e.g. RS256, ES256).';
 $string['audience'] = 'Audience (aud)';
 $string['audience_desc'] = 'Expected aud claim. Defaults to this Moodle’s URL.';
 $string['autocreate'] = 'Just-in-time user creation';
+$string['cachedef_jwks'] = 'JWKS cache';
 $string['claim_email'] = 'Claim for email';
 $string['claim_username'] = 'Claim for username';
 $string['detailedevents'] = 'Enable detailed event logging';
